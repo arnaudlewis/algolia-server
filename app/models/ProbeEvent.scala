@@ -32,29 +32,31 @@ object ProbeEvent {
   implicit def eventReader : Reads[ProbeEvent] = (
     (__ \ "_id").readNullable[String].map(_.getOrElse(java.util.UUID.randomUUID().toString)) and
     (__ \ "origin").read[String] and
-    (__ \ "nameLookTime").read[Duration] and
-    (__ \ "connectTime").read[Duration] and
-    (__ \ "transferTime").read[Duration] and
-    (__ \ "totalTime").read[Duration] and
-    (__ \ "createdAt").read[DateTime] and
+    (__ \ "name_lookup_time_ms").read[Duration] and
+    (__ \ "connect_time_ms").read[Duration] and
+    (__ \ "transfer_time_ms").read[Duration] and
+    (__ \ "total_time_ms").read[Duration] and
+    (__ \ "created_at").read[DateTime] and
     (__ \ "status").read[Int]
   )(ProbeEvent.apply _)
 
   implicit def eventWriter : OWrites[ProbeEvent] = (
     (__ \ "_id").write[String] and
     (__ \ "origin").write[String] and
-    (__ \ "nameLookTime").write[Duration] and
-    (__ \ "connectTime").write[Duration] and
-    (__ \ "transferTime").write[Duration] and
-    (__ \ "totalTime").write[Duration] and
-    (__ \ "createdAt").write[DateTime] and
+    (__ \ "name_lookup_time_ms").write[Duration] and
+    (__ \ "connect_time_ms").write[Duration] and
+    (__ \ "transfer_time_ms").write[Duration] and
+    (__ \ "total_time_ms").write[Duration] and
+    (__ \ "created_at").write[DateTime] and
     (__ \ "status").write[Int]
   )(unlift(ProbeEvent.unapply _))
 
   def create(jsEvent: JsValue) : Option[ProbeEvent] = {
     eventReader.reads(jsEvent) match {
       case JsSuccess(event, _) => Some(event)
-      case e: JsError => None
+      case e: JsError =>
+        println(e)
+        None
     }
   }
 }

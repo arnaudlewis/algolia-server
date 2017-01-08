@@ -1,0 +1,35 @@
+@import ./colors
+
+body
+  background-image: linear-gradient(-180deg, $bermuda 0%, $brightturquoise 98%)
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  font-size: 18px
+  font-family: 'Lato', 'Arial'
+  letter-spacing: 0.25
+  color: $bluebayoux
+  height: 100vh
+
+
+  .content
+    max-width: 1440px
+    min-width: 1000px
+    font-size: 0
+    background-color: white
+    margin: auto
+    height: 100%
+    > *
+      font-size: 1rem
+      padding: 20px
+      box-sizing: border-box
+      display: inline-block
+      height: 100%
+      vertical-align: top
+
+    aside
+      width: 300px
+      background-color: $alabaster
+      border-right: 1px solid $alto
+
+    main
+      width: calc(100% - 300px)

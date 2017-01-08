@@ -25,14 +25,18 @@ class ProbeEventRepo @Inject() (val db: DB) {
     } yield R
   }
 
-  def insert(event: ProbeEvent) : Unit = {
-    (for {
+  def insert(event: ProbeEvent) : Future[Unit] = {
+    val writeRes = (for {
       coll <- collection
       R <- coll.insert(event)
-    } yield R).onComplete {
+    } yield R)
+
+    writeRes.onComplete {
       case Failure(e) => throw new ProbeEventException("Error inserting Probe Event with origin : " + event.origin)
       case Success(writeResult) =>
         Logger.info(s"successfully inserted probeEvent: $writeResult")
     }
+
+    writeRes.map(_ => {})
   }
 }
