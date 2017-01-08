@@ -1,7 +1,7 @@
 import h from 'inferno-hyperscript';
 import Inferno from 'inferno';
 
-import Chart from './components/Chart';
+import StatsLayout from './components/StatsLayout';
 
 const $dashboardChart = document.querySelector('#dashboard-chart');
-if($dashboardChart) Inferno.render(h(Chart, {}), $dashboardChart);
+if($dashboardChart) Inferno.render(h(StatsLayout, {origins: Window.origins}), $dashboardChart);

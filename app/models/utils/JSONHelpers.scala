@@ -10,16 +10,12 @@ object `package` {
   val dateTimeFormat = "yyyy-MM-dd HH:mm:ss z"
   val formatter = DateTimeFormat.forPattern(dateTimeFormat)
 
-  def formatDateTime(datetime: DateTime): String =
-    datetime.withZone(DateTimeZone.UTC).toString(dateTimeFormat)
-
   implicit val dateTimeWriter = new Writes[DateTime] {
     def writes(datetime: DateTime): JsValue = {
-      JsString(formatDateTime(datetime))
+      Json.obj("$date" -> datetime.getMillis)
     }
   }
-
-  implicit val dateTimeReader = new Reads[DateTime] {
+  implicit val JSONDateTimeReader = new Reads[DateTime] {
     def reads(datetime: JsValue): JsResult[DateTime] = {
       datetime.validate[String].map(d => formatter.parseDateTime(d))
     }
@@ -32,7 +28,6 @@ object `package` {
         case Some(durationL) => JsSuccess(Duration(durationL, MILLISECONDS))
         case None => JsError()
       }
-
     def writes(duration: Duration): JsValue = JsNumber(duration.toMillis)
   }
 }

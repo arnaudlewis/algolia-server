@@ -7,15 +7,6 @@ import play.api.libs.json._
 import reactivemongo.bson.{BSONObjectID, _}
 import org.joda.time.DateTime
 
-
- // "origin": "sdn-probe-moscow", // name of the probe
- //    "name_lookup_time_ms": 203,
- //    "connect_time_ms": 413,
- //    "transfer_time_ms": 135,
- //    "total_time_ms": 752,
- //    "created_at": "2015-08-10 21:52:21 UTC",
- //    "status": 200
-
 case class ProbeEvent(
   _id : String,
   origin: String,
@@ -54,9 +45,7 @@ object ProbeEvent {
   def create(jsEvent: JsValue) : Option[ProbeEvent] = {
     eventReader.reads(jsEvent) match {
       case JsSuccess(event, _) => Some(event)
-      case e: JsError =>
-        println(e)
-        None
+      case e: JsError => None
     }
   }
 }

@@ -1,11 +1,10 @@
-@()
+@import play.api.libs.json.{Json, JsValue, JsArray}
+
+@(origins: JsValue)
 
 @main() {
-
-  <aside>
-  </aside>
-
-  <main>
-    <div id="dashboard-chart"></div>
-  </main>
+  <script>
+    Window.origins = @Html(Json.stringify(origins))
+  </script>
+  <div id="dashboard-chart"></div>
 }
