@@ -4,5 +4,7 @@ GET     /api/1/pings/:origin/hours      controllers.Application.reportByOrigin(o
 
 POST    /report                         controllers.Application.reportProbeEvent()
 
+GET     /router                         controllers.Application.javascriptRouter
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

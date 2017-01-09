@@ -1,6 +1,7 @@
 package controllers
 
 import javax.inject._
+import play.api.routing._
 import play.api._
 import play.api.Logger
 import play.api.mvc._
@@ -11,6 +12,7 @@ import scala.concurrent.Future
 
 import services.db.ProbeEventRepo
 import models.ProbeEvent
+import common.Algolia
 
 @Singleton
 class Application @Inject() (val probeEventRepo: ProbeEventRepo) extends Controller {
@@ -50,4 +52,11 @@ class Application @Inject() (val probeEventRepo: ProbeEventRepo) extends Control
     }
   }
 
+  def javascriptRouter = Action { implicit request =>
+    Ok(
+      JavaScriptReverseRouter("Router")(
+        routes.javascript.Application.reportByOrigin
+      )
+    ).as("text/javascript")
+  }
 }

@@ -5,7 +5,7 @@ import javax.inject._
 import play.api.Logger
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
-import org.joda.time.DateTime
+import org.joda.time.{DateTime, DateTimeZone}
 import play.modules.reactivemongo.json._
 import reactivemongo.play.json.collection.JSONCollection
 

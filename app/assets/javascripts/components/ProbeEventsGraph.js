@@ -3,19 +3,26 @@ import Chart from 'chart.js';
 import Component from 'inferno-component';
 import h from 'inferno-hyperscript';
 
+import communication from '../communication';
+
 class ProbeEventsGraph extends Component {
 
   constructor(props) {
     super(props);
     this.renderChart = ::this.renderChart;
+    this.state = {data: []};
   }
 
   componentDidMount() {
     this.renderChart();
+    this.refreshData();
   }
 
-  componentShouldUpdate() {
-
+  refreshData() {
+    setInterval(() => {
+      communication.getDataByOrigin('sdn-probe-tokyo')
+      .then((data) => this.setState({data}));
+    }, 3000);
   }
 
   renderChart(canvas) {
@@ -59,6 +66,8 @@ class ProbeEventsGraph extends Component {
   }
 
   render() {
+    console.log(this.state.data);
+
     return h('div.probe-events-graph', [
       h('h2', this.props.currentOrigin),
       h('canvas', {ref: (canvas) => this.renderChart(canvas)})

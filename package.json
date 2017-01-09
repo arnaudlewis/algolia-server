@@ -14,7 +14,8 @@
     "inferno": "^1.1.0",
     "inferno-component": "^1.1.0",
     "inferno-hyperscript": "^1.0.7",
-    "regenerator": "^0.9.5"
+    "regenerator": "^0.9.5",
+    "whatwg-fetch": "^2.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
