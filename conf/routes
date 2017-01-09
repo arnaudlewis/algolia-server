@@ -1,6 +1,6 @@
 GET     /                               controllers.Application.index
 
-GET     /api/1/pings/:origin/hours      controllers.Application.reportByOrigin(origin: String, duration: Option[Int] ?= None)
+GET     /api/1/pings/:origin/hours      controllers.Application.reportByOrigin(origin: String)
 
 POST    /report                         controllers.Application.reportProbeEvent()
 

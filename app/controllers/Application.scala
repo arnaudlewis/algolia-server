@@ -5,7 +5,7 @@ import play.api._
 import play.api.Logger
 import play.api.mvc._
 import play.api.libs.json._
-
+import org.joda.time.DateTime
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
@@ -23,17 +23,16 @@ class Application @Inject() (val probeEventRepo: ProbeEventRepo) extends Control
     }
   }
 
-  // val timeTransferWriter: Writes[Seq[(Int, Long)]] = Writes { timeList =>
-  //   JsArray(timeList.map { t =>
-  //     Json.obj(t._1 -> t._2)
-  //   })
-  // }
+  val timeTransferWriter: Writes[(Long, DateTime)] = Writes { timeReport =>
+    Json.obj(
+      "avg_transfer_time" -> timeReport._1,
+      "date" -> timeReport._2.toString
+    )
+  }
 
-  def reportByOrigin(origin: String, duration: Option[Int]) = Action.async {
-    probeEventRepo.aggregateTimeTransferFor(origin, duration).map { timeTransfer =>
-      //seq[(hour, timeTransfer)]
-      // Ok(timeTransferWriter.writes(timeTransfer))
-      Ok
+  def reportByOrigin(origin: String) = Action.async {
+    probeEventRepo.aggregateTimeTransferFor(origin).map { timeTransfer =>
+      Ok(Json.toJson(timeTransfer)(Writes.seq(timeTransferWriter)))
     }
   }
 
