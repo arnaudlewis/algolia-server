@@ -58,7 +58,7 @@ class ProbeEventRepo @Inject() (val db: DB) {
           (__ \ "_id" \ "month").read[Int] and
           (__ \ "_id" \ "year").read[Int]
         ).tupled.map {
-          case (hour, day, month, year) => new DateTime(year, month, day, hour, 0)
+          case (hour, day, month, year) => new DateTime(year, month, day, hour, 0, DateTimeZone.UTC)
         }
       ).tupled
 
