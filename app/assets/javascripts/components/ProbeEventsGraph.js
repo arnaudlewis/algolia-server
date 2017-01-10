@@ -128,8 +128,12 @@ class ProbeEventsGraph extends Component {
 
   render() {
     return h('div.probe-events-graph', [
-      h('h2', this.props.currentOrigin),
-      h('canvas#canvas')
+      h('div.graph-header', [
+        h('span', `Server : ${this.props.currentOrigin} - Average transfer time (ms)`)
+      ]),
+      h('div.graph-body', [
+        h('canvas#canvas')
+      ])
     ]);
   }
 }
