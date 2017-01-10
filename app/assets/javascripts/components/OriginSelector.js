@@ -22,7 +22,7 @@ class OriginSelector extends Component {
   }
 
   render() {
-    return h('select', {onChange: this.handleChange},this.renderOptions());
+    return h('select', {value: this.props.value, onChange: this.handleChange},this.renderOptions());
   }
 }
 

@@ -25,6 +25,7 @@ class StatsLayout extends Component {
       h(OriginSelector, {
         origins: this.props.origins,
         onChange: this.handleOriginChange,
+        value: this.state.currentOrigin,
       }),
       h(ProbeEventsGraph, {currentOrigin: this.state.currentOrigin}),
     ]);

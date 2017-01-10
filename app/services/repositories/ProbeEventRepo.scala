@@ -29,7 +29,6 @@ class ProbeEventRepo @Inject() (val db: DB) {
   def aggregateTimeTransferFor(origin: String) : Future[Seq[(Long, DateTime)]] = {
     collection.flatMap { coll =>
       import coll.BatchCommands.AggregationFramework._
-
       val matchCommand = Match(Json.obj("origin" -> origin))
 
       val projectCommand = Project(Json.obj(
@@ -65,10 +64,7 @@ class ProbeEventRepo @Inject() (val db: DB) {
       for {
         res <- coll.aggregate(matchCommand, List(projectCommand, groupCommand))
       } yield {
-        println(res)
-        val toto = res.head(reader)
-        println(toto)
-        toto
+        res.head(reader)
       }
     }
   }
@@ -81,8 +77,7 @@ class ProbeEventRepo @Inject() (val db: DB) {
 
     writeRes.onComplete {
       case Failure(e) => throw new ProbeEventException("Error inserting Probe Event with origin : " + event.origin)
-      case Success(writeResult) =>
-        Logger.info(s"successfully inserted probeEvent: $writeResult")
+      case Success(writeResult) => Unit
     }
 
     writeRes.map(_ => {})
