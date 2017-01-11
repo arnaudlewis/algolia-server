@@ -4,8 +4,11 @@
   "description": "This is your new Play application =================================",
   "main": " ",
   "scripts": {
+    "start": "npm run build-style; npm run build-front;",
     "dev": "npm run watch-style | npm run watch-front",
+    "build-style": "gulp build-style",
     "watch-style": "gulp watch-style",
+    "build-front": "webpack",
     "watch-front": "webpack --watch --inline",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
